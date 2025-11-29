@@ -4,13 +4,17 @@
   "description": "Primeiro projeto com node e express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js localhost 3333"
   },
   "type": "module",
   "keywords": [],
   "author": "Letícia de Alencar Fernandes",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
