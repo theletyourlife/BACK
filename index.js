@@ -1,4 +1,4 @@
-import express from "express"
+import express, { response } from "express"
 import cors from "cors"
 import mysql from "mysql2"
 
@@ -12,7 +12,49 @@ app.use(express.json())
 //GET, POST, PUT, PATCH, e DELETE => métodos HTTP
 
 app.get("/", (request, response) => {
-    response.json(persons)
+    const searchCommand = "SELECT id, name, email, nickname FROM leticiamarcelino_02tb"
+
+    database.query(searchCommand, (error, users) => {
+        if(error) {
+            console.log(error)
+            return
+        }
+        
+        response.json(users)
+    })
+})
+
+app.post("/salvar-pontuacao", (request, response) => {
+
+})
+
+app.get("/pontuacao", (request, response) => {
+    
+})
+
+app.post("/login", (request, response) => {
+    const { email, password } = request.body.user
+
+    const selectCommand = `
+    SELECT *
+    FROM leticiamarcelino_02tb
+    WHERE email = ?
+    `
+
+    database.query(selectCommand, [email], (error, user) => {
+        if (error) {
+            console.log(error)
+            return
+        }
+
+        if (user.length === 0 || user[0].password !== password) {
+            response.json({ message: "Usuário ou senha incorretos!" })
+            return
+        }
+
+        response.json({ id: user[0].id, name: user[0].name})
+       
+    })
 })
 
 app.post("/cadastrar", (request, response) => {
